@@ -13,7 +13,10 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.wizarpos.payment.aidl.IPaymentPay;
@@ -21,6 +24,7 @@ import com.wizarpos.payment.aidl.IPaymentPay;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.wizarpos.payment.aidl.GlobalAidlRequest.ActivateDevice;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.AuthCancellation;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.AuthCompletion;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.GetPosInfo;
@@ -33,6 +37,8 @@ import static com.wizarpos.payment.aidl.GlobalAidlRequest.Refund;
 public class MainActivity extends Activity implements OnClickListener {
 
 	private String param, response,criticalDate;
+	boolean CMAppIconVisibility = true;
+	String languageCode = "";
 
 	private IPaymentPay mWizarPayment;
 	final ServiceConnection mConnPayment = new PaymentConnection();
@@ -48,10 +54,20 @@ public class MainActivity extends Activity implements OnClickListener {
 			, R.id.payCash, R.id.refund, R.id.getPOSInfo,R.id.printlast
 			, R.id.preAuth, R.id.authComplete, R.id.authCancel
 			, R.id.printByTrxid
+			, R.id.actDevice,R.id.Language, R.id.setParam,
 		};
 		for (int id : btnIds) {
 			findViewById(id).setOnClickListener(this);
 		}
+
+		Switch sw = (Switch) findViewById(R.id.switch_cm_visible);
+		sw.setChecked(CMAppIconVisibility);
+		sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				CMAppIconVisibility = isChecked;
+			}
+		});
 	}
 
 	@Override
@@ -133,6 +149,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void handleTransactionWithInput(int btnId) {
 		switch (btnId) {
+		case R.id.actDevice:
+			try {
+				JSONObject json = new JSONObject();
+				setParam4ActDevice(json);
+				param = json.toString();
+				createAsyncTask().execute(btnId);
+			} catch (JSONException e) {
+				e.printStackTrace();
+				showResponse("JSON Error");
+			}
+			break;
 		case R.id.payCash:
 		case R.id.preAuth:
 			showInputDialog("Input Trans Amount", 9, input -> {
@@ -156,7 +183,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.refund:
 		case R.id.authComplete:
 		case R.id.authCancel:
-			// 多步输入嵌套处理
 			showInputDialog("Input Trans Amount", 9, amount -> {
 				if (amount == null) return;
 				transAmount = amount;
@@ -221,6 +247,21 @@ public class MainActivity extends Activity implements OnClickListener {
 				showResponse("JSON Error");
 			}
 			break;
+		case R.id.Language:
+			showLanguageDialog();
+			break;
+		case R.id.setParam:
+			try {
+				JSONObject json = new JSONObject();
+				setParam4setPaymentAPPParam(json);
+				param = json.toString();
+				createAsyncTask().execute(btnId);
+			} catch (JSONException e) {
+				e.printStackTrace();
+				showResponse("JSON Error");
+			}
+
+			break;
 		}
 	}
 
@@ -236,6 +277,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				String result = "Skipped";
 				try {
 					switch(btnIds[0]) {
+					case R.id.actDevice:
 					case R.id.payCash:
 					case R.id.refund:
 					case R.id.printByTrxid:
@@ -245,6 +287,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					case R.id.printlast:
 					case R.id.getPOSInfo:
 						result = mWizarPayment.transact			(param);
+						break;
+					case R.id.setParam:
+						result = mWizarPayment.setParam			(param);
 						break;
 					}
 				} catch (RemoteException e) {
@@ -260,6 +305,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		};
 	}
 
+	private void setParam4ActDevice(JSONObject jsonObject) throws JSONException {
+		jsonObject.put("TransType", ActivateDevice);
+		jsonObject.put("CallerName", "test merchant");
+		jsonObject.put("TransIndexCode", "1234561");//Third application transaction order ID，This must be not repeated
+		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
+
+	}
 
 	private void setParam4PayCash(JSONObject jsonObject) throws JSONException {
 		jsonObject.put("TransType", Purchase);
@@ -354,6 +406,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
+	private void setParam4setPaymentAPPParam(JSONObject jsonObject) throws JSONException {
+
+		jsonObject.put("AppIconVisible", CMAppIconVisibility);
+		if(!languageCode.isEmpty())
+			jsonObject.put("LanguageCodes", languageCode);
+
+	}
+
 	public interface InputCallback {
 		void onInput(String input);
 	}
@@ -387,5 +447,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		return false;
 	}
 
+	public void showLanguageDialog() {
+		final String[] languages = {"English", "Français", "Nederlands", "Español"};
+		final String[] tags = {"en", "fr", "nl", "es"};
 
+		new AlertDialog.Builder(MainActivity.this)
+			.setTitle("Select Language")
+			.setItems(languages, (dialog, which) -> {
+				languageCode = tags[which];
+				if(notEmptyString(languageCode)){
+					Button btn = (Button) findViewById(R.id.Language);
+					btn.setText(languageCode);
+				}
+			})
+			.setNegativeButton("Cancel", null)
+			.show();
+	}
 }
+
+

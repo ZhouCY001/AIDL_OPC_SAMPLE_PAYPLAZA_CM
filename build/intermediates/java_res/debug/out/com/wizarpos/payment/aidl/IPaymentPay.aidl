@@ -19,4 +19,6 @@ interface IPaymentPay{
     * this method return false when payment action can not be cancelled
     */
     boolean cancelRequest(String jsonData);
+
+    String setParam(String jsonData);
 }

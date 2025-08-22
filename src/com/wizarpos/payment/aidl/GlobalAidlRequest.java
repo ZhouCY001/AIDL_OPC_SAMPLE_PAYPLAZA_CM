@@ -16,6 +16,7 @@ public class GlobalAidlRequest implements Parcelable {
     public static String QueryTransaction = "QueryTransaction";
     public static String PrintLast = "PrintLast";
     public static String PrintTotal = "PrintTotal";
+    public static String ActivateDevice = "ActivateDevice";
 
 /**
  * {

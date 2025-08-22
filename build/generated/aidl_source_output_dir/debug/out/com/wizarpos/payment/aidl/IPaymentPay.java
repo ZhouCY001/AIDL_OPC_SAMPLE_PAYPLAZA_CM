@@ -29,6 +29,10 @@ public interface IPaymentPay extends android.os.IInterface
     {
       return false;
     }
+    @Override public java.lang.String setParam(java.lang.String jsonData) throws android.os.RemoteException
+    {
+      return null;
+    }
     @Override
     public android.os.IBinder asBinder() {
       return null;
@@ -99,6 +103,16 @@ public interface IPaymentPay extends android.os.IInterface
           boolean _result = this.cancelRequest(_arg0);
           reply.writeNoException();
           reply.writeInt(((_result)?(1):(0)));
+          return true;
+        }
+        case TRANSACTION_setParam:
+        {
+          data.enforceInterface(descriptor);
+          java.lang.String _arg0;
+          _arg0 = data.readString();
+          java.lang.String _result = this.setParam(_arg0);
+          reply.writeNoException();
+          reply.writeString(_result);
           return true;
         }
         default:
@@ -194,11 +208,33 @@ public interface IPaymentPay extends android.os.IInterface
         }
         return _result;
       }
+      @Override public java.lang.String setParam(java.lang.String jsonData) throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        java.lang.String _result;
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          _data.writeString(jsonData);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_setParam, _data, _reply, 0);
+          if (!_status && getDefaultImpl() != null) {
+            return getDefaultImpl().setParam(jsonData);
+          }
+          _reply.readException();
+          _result = _reply.readString();
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+        return _result;
+      }
       public static com.wizarpos.payment.aidl.IPaymentPay sDefaultImpl;
     }
     static final int TRANSACTION_transact = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
     static final int TRANSACTION_addProcedureCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
     static final int TRANSACTION_cancelRequest = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+    static final int TRANSACTION_setParam = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
     public static boolean setDefaultImpl(com.wizarpos.payment.aidl.IPaymentPay impl) {
       // Only one user of this interface can use this function
       // at a time. This is a heuristic to detect if two different
@@ -230,4 +266,5 @@ public interface IPaymentPay extends android.os.IInterface
       * this method return false when payment action can not be cancelled
       */
   public boolean cancelRequest(java.lang.String jsonData) throws android.os.RemoteException;
+  public java.lang.String setParam(java.lang.String jsonData) throws android.os.RemoteException;
 }

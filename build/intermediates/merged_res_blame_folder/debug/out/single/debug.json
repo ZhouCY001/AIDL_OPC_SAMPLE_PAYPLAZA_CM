@@ -1,26 +1,30 @@
 [
     {
-        "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/drawable-xhdpi_ic_launcher.png.flat",
-        "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/drawable-xhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\drawable-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\drawable-mdpi\\ic_launcher.png"
     },
     {
         "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/layout_activity_main.xml.flat",
         "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/layout/activity_main.xml"
     },
     {
-        "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/drawable-xxhdpi_ic_launcher.png.flat",
-        "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/drawable-xxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\drawable-xxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/drawable-hdpi_ic_launcher.png.flat",
-        "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/drawable-hdpi/ic_launcher.png"
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\drawable-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\drawable-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/menu_main.xml.flat",
-        "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/menu/main.xml"
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.wizarpos.paymentrouterclient-merged_res-5:/drawable-mdpi_ic_launcher.png.flat",
-        "source": "com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:/drawable-mdpi/ic_launcher.png"
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\drawable-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-merged_res-5:\\menu_main.xml.flat",
+        "source": "C:\\Users\\33081\\.gradle\\daemon\\7.6.2\\com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6:\\menu\\main.xml"
     }
 ]

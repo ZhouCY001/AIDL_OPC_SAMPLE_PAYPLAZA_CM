@@ -48,6 +48,10 @@
                 android:layout_below="@id/line1" >
 
                 <Button
+                    android:id="@+id/actDevice"
+                    style="@style/btn_menu_style"
+                    android:text="actDevice" />
+                <Button
                     android:id="@+id/payCash"
                     style="@style/btn_menu_style"
                     android:text="Sale" />
@@ -99,6 +103,36 @@
                     android:id="@+id/printByTrxid"
                     style="@style/btn_menu_style"
                     android:text="PrintByTrxId" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line4" >
+                <Switch
+                    android:text="CM APP"
+                    android:id="@+id/switch_cm_visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="Show"
+                    android:textOff="Hide"
+                    android:showText="true"
+                    android:textSize="10sp"
+                    />
+
+                <Button
+                    android:id="@+id/Language"
+                    style="@style/btn_menu_style"
+                    android:textSize="10sp"
+                    android:text="Language" />
+
+                <Button
+                    android:id="@+id/setParam"
+                    style="@style/btn_menu_style"
+                    android:textSize="10sp"
+                    android:text="setParam" />
 
             </LinearLayout>
 
