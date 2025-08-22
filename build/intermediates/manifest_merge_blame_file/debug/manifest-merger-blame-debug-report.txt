@@ -1,0 +1,52 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.wizarpos.paymentrouterclient"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="15"
+8-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+11-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:6:5-76
+11-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:6:22-74
+12
+13    <application
+13-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:9:5-26:19
+14        android:allowBackup="true"
+14-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:10:9-35
+15        android:debuggable="true"
+16        android:icon="@drawable/ic_launcher"
+16-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:11:9-45
+17        android:label="@string/app_name"
+17-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:12:9-41
+18        android:testOnly="true"
+19        android:theme="@style/AppTheme" >
+19-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:13:9-40
+20        <activity
+20-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:14:9-25:20
+21            android:name="com.wizarpos.paymentrouterclient.MainActivity"
+21-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:15:13-73
+22            android:exported="true"
+22-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:17:13-36
+23            android:label="@string/app_name"
+23-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:18:13-45
+24            android:screenOrientation="nosensor" >
+24-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:16:13-49
+25            <intent-filter>
+25-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:20:13-24:29
+26                <action android:name="android.intent.action.MAIN" />
+26-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:21:17-69
+26-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:21:25-66
+27
+28                <category android:name="android.intent.category.LAUNCHER" />
+28-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:23:17-77
+28-->D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\AndroidManifest.xml:23:27-74
+29            </intent-filter>
+30        </activity>
+31    </application>
+32
+33</manifest>

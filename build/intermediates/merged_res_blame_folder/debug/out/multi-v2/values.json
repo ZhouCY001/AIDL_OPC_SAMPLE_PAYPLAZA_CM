@@ -1,0 +1,62 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.wizarpos.paymentrouterclient-mergeDebugResources-3:/values/values.xml",
+            "map": [
+                {
+                    "source": "D:\\work\\AndroidWorkSpace\\OPC_AIDL_SAMPLE_PAYPLAZA\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "4,3,5",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "116,58,170",
+                        "endColumns": "52,56,52",
+                        "endOffsets": "164,110,218"
+                    },
+                    "to": {
+                        "startLines": "4,5,6",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "167,220,277",
+                        "endColumns": "52,56,52",
+                        "endOffsets": "215,272,325"
+                    }
+                },
+                {
+                    "source": "D:\\work\\AndroidWorkSpace\\OPC_AIDL_SAMPLE_PAYPLAZA\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "6,15,19",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "192,525,690",
+                        "endLines": "12,17,24",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "484,682,955"
+                    },
+                    "to": {
+                        "startLines": "7,10,13",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "330,413,485",
+                        "endLines": "9,12,18",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "408,480,745"
+                    }
+                },
+                {
+                    "source": "D:\\work\\AndroidWorkSpace\\OPC_AIDL_SAMPLE_PAYPLAZA\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "92,150",
+                        "endColumns": "56,54",
+                        "endOffsets": "144,200"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,112",
+                        "endColumns": "56,54",
+                        "endOffsets": "107,162"
+                    }
+                }
+            ]
+        }
+    ]
+}

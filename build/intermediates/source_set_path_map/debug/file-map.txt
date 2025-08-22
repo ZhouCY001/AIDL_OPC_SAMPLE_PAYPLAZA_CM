@@ -1,0 +1,8 @@
+com.wizarpos.paymentrouterclient-pngs-0 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\generated\res\pngs\debug
+com.wizarpos.paymentrouterclient-resValues-1 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\generated\res\resValues\debug
+com.wizarpos.paymentrouterclient-rs-2 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\generated\res\rs\debug
+com.wizarpos.paymentrouterclient-mergeDebugResources-3 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.wizarpos.paymentrouterclient-mergeDebugResources-4 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.wizarpos.paymentrouterclient-merged_res-5 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\build\intermediates\merged_res\debug
+com.wizarpos.paymentrouterclient-OPC_AIDL_SAMPLE_PAYPLAZA-6 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\res
+com.wizarpos.paymentrouterclient-debug-7 D:\work\AndroidWorkSpace\OPC_AIDL_SAMPLE_PAYPLAZA\src\debug\res
