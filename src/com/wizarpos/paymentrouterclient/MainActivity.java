@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.speech.tts.TextToSpeech;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +21,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.wizarpos.payment.aidl.IPaymentPay;
+import com.wizarpos.payment.aidl.IPaymentPayCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.ActivateDevice;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.AuthCancellation;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.AuthCompletion;
+import static com.wizarpos.payment.aidl.GlobalAidlRequest.CheckCardExists;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.GetPosInfo;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.PreAuth;
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.PrintLast;
@@ -45,6 +50,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	String transAmount, oriTrace,oriTransDate,oriTransIndexCode;
 
+	TextToSpeech textToSpeech = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +61,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			, R.id.payCash, R.id.refund, R.id.getPOSInfo,R.id.printlast
 			, R.id.preAuth, R.id.authComplete, R.id.authCancel
 			, R.id.printByTrxid
-			, R.id.actDevice,R.id.Language, R.id.setParam,
+			, R.id.actDevice,R.id.Language, R.id.setParam,R.id.setCallback
+			, R.id.checkCardExists
 		};
 		for (int id : btnIds) {
 			findViewById(id).setOnClickListener(this);
@@ -68,6 +76,32 @@ public class MainActivity extends Activity implements OnClickListener {
 				CMAppIconVisibility = isChecked;
 			}
 		});
+
+		String engineName = "com.google.android.tts";
+		textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+			@Override
+			public void onInit(int status) {
+				if (status == TextToSpeech.SUCCESS) {
+					Log.i("TTS", "TTS initialization SUCCESS with engine: " + engineName);
+
+					Locale locale = Locale.getDefault();
+					int check = textToSpeech.isLanguageAvailable(locale);
+					if (check == TextToSpeech.LANG_MISSING_DATA || check == TextToSpeech.LANG_NOT_SUPPORTED) {
+						Log.e("TTS", "Language " + locale.toString() + " not supported or missing data");
+						Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+						startActivity(installIntent);
+					} else {
+						textToSpeech.setLanguage(locale);
+						textToSpeech.setPitch(1.2f);
+						textToSpeech.setSpeechRate(0.90f);
+						textToSpeech.speak("TTS is ready", TextToSpeech.QUEUE_FLUSH, null, "PaymentRouterClient");
+					}
+				} else {
+					Log.e("TTS", "TTS initialization FAILED (status=" + status + ")");
+				}
+			}
+		}, engineName);  // 显式指定 TTS 引擎
+
 	}
 
 	@Override
@@ -260,8 +294,25 @@ public class MainActivity extends Activity implements OnClickListener {
 				e.printStackTrace();
 				showResponse("JSON Error");
 			}
-
 			break;
+		case R.id.checkCardExists:
+			try {
+				JSONObject json = new JSONObject();
+				setParam4CheckCardExists(json);
+				param = json.toString();
+				createAsyncTask().execute(btnId);
+			} catch (JSONException e) {
+				e.printStackTrace();
+				showResponse("JSON Error");
+			}
+			break;
+		case R.id.setCallback:
+            try {
+                mWizarPayment.addProcedureCallback(paymentPayCallback);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+            break;
 		}
 	}
 
@@ -286,6 +337,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					case R.id.authCancel:
 					case R.id.printlast:
 					case R.id.getPOSInfo:
+					case R.id.checkCardExists:
 						result = mWizarPayment.transact			(param);
 						break;
 					case R.id.setParam:
@@ -310,6 +362,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("CallerName", "test merchant");
 		jsonObject.put("TransIndexCode", "1234561");//Third application transaction order ID，This must be not repeated
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
+
+	}
+
+	private void setParam4CheckCardExists(JSONObject jsonObject) throws JSONException {
+		jsonObject.put("TransType", CheckCardExists);
 
 	}
 
@@ -463,6 +520,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			.setNegativeButton("Cancel", null)
 			.show();
 	}
+
+	public IPaymentPayCallback paymentPayCallback = new IPaymentPayCallback.Stub() {
+		@Override
+		public void process(int processCode, String processMsg)  {
+			String str = "Callback->Code:" + processCode + ",processMsg:" + processMsg;
+			Log.w("IPaymentPayCallback", str);
+			if(textToSpeech!=null)
+				textToSpeech.speak(processMsg, TextToSpeech.QUEUE_FLUSH, null, "PaymentRouterClient");
+		}
+
+	};
 }
 
 

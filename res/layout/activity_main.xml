@@ -39,6 +39,11 @@
                     android:id="@+id/unbind"
                     style="@style/btn_menu_style"
                     android:text="UnBind" />
+
+                <Button
+                    android:id="@+id/setCallback"
+                    style="@style/btn_menu_style"
+                    android:text="setCallback" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,7 +141,23 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/line6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <Button
+                    android:id="@+id/checkCardExists"
+                    style="@style/btn_menu_style"
+                    android:text="checkCardExists" />
 
+
+                <Button
+                    android:visibility="invisible"
+                    style="@style/btn_menu_style"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

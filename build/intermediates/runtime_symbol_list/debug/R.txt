@@ -7,6 +7,7 @@ int id action_settings 0x7f030002
 int id authCancel 0x7f030003
 int id authComplete 0x7f030004
 int id bind 0x7f030005
+int id checkCardExists 0x7f030020
 int id getPOSInfo 0x7f030006
 int id line1 0x7f030008
 int id line10 0x7f030009
@@ -17,6 +18,7 @@ int id line2 0x7f03000d
 int id line3 0x7f03000e
 int id line4 0x7f03000f
 int id line5 0x7f030010
+int id line6 0x7f030021
 int id line8 0x7f030011
 int id method 0x7f030012
 int id param 0x7f030013
@@ -27,6 +29,7 @@ int id printlast 0x7f030017
 int id refund 0x7f030018
 int id result 0x7f030019
 int id scroller 0x7f03001a
+int id setCallback 0x7f03001f
 int id setParam 0x7f03001d
 int id switch_cm_visible 0x7f03001e
 int id unbind 0x7f03001b
