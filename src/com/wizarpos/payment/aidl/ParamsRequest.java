@@ -3,15 +3,17 @@ package com.wizarpos.payment.aidl;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ParamsRequest  implements Parcelable {
+public class ParamsRequest implements Parcelable {
    private boolean AppIconVisible = true;
    private String LanguageCodes;
+   private boolean enableBinListCheck = true;
 
    public ParamsRequest(){}
 
    protected ParamsRequest(Parcel in) {
       AppIconVisible =  in.readByte() != 0;
       LanguageCodes = in.readString();
+      enableBinListCheck =  in.readByte() != 0;
    }
 
 
@@ -19,6 +21,7 @@ public class ParamsRequest  implements Parcelable {
    public void writeToParcel(Parcel dest, int flags) {
       dest.writeByte((byte) (AppIconVisible ? 1 : 0));
       dest.writeString(LanguageCodes);
+      dest.writeByte((byte) (enableBinListCheck ? 1 : 0));
    }
 
    @Override
@@ -57,11 +60,20 @@ public class ParamsRequest  implements Parcelable {
       LanguageCodes = languageCodes;
    }
 
+   public boolean isEnableBinListCheck() {
+      return enableBinListCheck;
+   }
+
+   public void setEnableBinListCheck(boolean enableBinListCheck) {
+      this.enableBinListCheck = enableBinListCheck;
+   }
+
    @Override
    public String toString() {
       return "ParamsRequest{" +
           "AppIconVisible=" + AppIconVisible +
           ", LanguageCodes='" + LanguageCodes + '\'' +
+          ", enableBinListCheck=" + enableBinListCheck +
           '}';
    }
 }
