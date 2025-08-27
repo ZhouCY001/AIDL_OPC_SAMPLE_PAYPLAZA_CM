@@ -469,6 +469,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		if(!languageCode.isEmpty())
 			jsonObject.put("LanguageCodes", languageCode);
 
+		jsonObject.put("enableBinListCheck", true);
+
+
 	}
 
 	public interface InputCallback {
