@@ -377,6 +377,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("TransIndexCode", "1234561");//Third application transaction order ID，This must be not repeated
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 
+		//0 means voice prompt is not enforced.
+		//Non-zero means voice prompt is enforced.
+		jsonObject.put("voiceAssistance", "1");
+
+
+
+
 		if(notEmptyString(transAmount))
 			jsonObject.put("TransAmount", transAmount);
 	}
