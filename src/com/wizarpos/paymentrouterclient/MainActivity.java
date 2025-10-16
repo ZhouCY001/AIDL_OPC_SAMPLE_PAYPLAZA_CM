@@ -381,7 +381,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		//Non-zero means voice prompt is enforced.
 		jsonObject.put("voiceAssistance", "1");
 
-
+		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
+		jsonObject.put("merchantOrderRef", "1234567890123456");
 
 
 		if(notEmptyString(transAmount))
@@ -395,6 +396,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("CurrencyCode", "978");
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 		jsonObject.put("OriTraceNum", 000003);	//This value should be same of the 'trace' in Sale response data.
+
+		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
+		jsonObject.put("merchantOrderRef", "1234567890123456");
 
 		if(notEmptyString(transAmount))
 			jsonObject.put("TransAmount", transAmount);
@@ -412,6 +416,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("TransIndexCode", "1234570");//Third application transaction order ID，This must be not repeated
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 
+		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
+		jsonObject.put("merchantOrderRef", "1234567890123456");
+
 		if(notEmptyString(transAmount))
 			jsonObject.put("TransAmount", transAmount);
 	}
@@ -422,6 +429,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("CurrencyCode", "978");
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 		jsonObject.put("TransIndexCode", "1234571");//Third application transaction order ID，This must be not repeated
+
+		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
+		jsonObject.put("merchantOrderRef", "1234567890123456");
+
 		if(notEmptyString(transAmount))
 			jsonObject.put("TransAmount", transAmount);
 		if(notEmptyString(oriTrace))
@@ -438,6 +449,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("CurrencyCode", "978");
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 		jsonObject.put("TransIndexCode", "1234572");//Third application transaction order ID，This must be not repeated
+
+		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
+		jsonObject.put("merchantOrderRef", "1234567890123456");
 
 		if(notEmptyString(transAmount))
 			jsonObject.put("TransAmount", transAmount);
@@ -476,7 +490,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if(!languageCode.isEmpty())
 			jsonObject.put("LanguageCodes", languageCode);
 
-		jsonObject.put("enableBinListCheck", true);
+		jsonObject.put("enableBinListCheck", false);
 
 
 	}
