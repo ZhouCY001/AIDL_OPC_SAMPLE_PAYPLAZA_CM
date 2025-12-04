@@ -378,8 +378,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("requestTips", "(AAAA BBBBB CCCC DDDD).  ");
 
 		//0 means voice prompt is not enforced.
-		//Non-zero means voice prompt is enforced.
+		//1 means voice prompt is enforced.
 		jsonObject.put("voiceAssistance", "1");
+		//0 means blindMode is not enforced.
+		//1 means blindMode is enforced.
+		jsonObject.put("blindMode", "1");
 
 		//If this field is provided, it will be used as the value of 5FE341 and sent to the backend.
 		jsonObject.put("merchantOrderRef", "1234567890123456");
