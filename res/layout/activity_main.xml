@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line4" >
                 <Switch
-                    android:text="CM APP"
+                    android:text="APP ICON"
                     android:id="@+id/switch_cm_visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,16 +146,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
+
+                <Switch
+                    android:text="Kiosk mode"
+                    android:id="@+id/switch_kiosk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="true"
+                    android:textOff="false"
+                    android:showText="true"
+                    android:textSize="10sp"
+                    />
+
                 <Button
                     android:id="@+id/checkCardExists"
                     style="@style/btn_menu_style"
                     android:text="checkCardExists" />
 
 
-                <Button
-                    android:visibility="invisible"
-                    style="@style/btn_menu_style"
-                    />
 
             </LinearLayout>
 

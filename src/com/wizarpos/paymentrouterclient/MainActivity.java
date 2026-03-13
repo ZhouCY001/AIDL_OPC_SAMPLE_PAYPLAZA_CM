@@ -26,6 +26,7 @@ import com.wizarpos.payment.aidl.IPaymentPayCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.Locale;
 
 import static com.wizarpos.payment.aidl.GlobalAidlRequest.ActivateDevice;
@@ -42,6 +43,13 @@ import static com.wizarpos.payment.aidl.GlobalAidlRequest.Refund;
 public class MainActivity extends Activity implements OnClickListener {
 
 	private String param, response,criticalDate;
+	private static final String ROUTING_ACTION_QUERY_LIST = "queryRoutingList";
+	private static final String ROUTING_ACTION_QUERY_BY_PAN = "queryRoutingByPan";
+	private static final String ROUTING_ACTION_ADD = "addRouting";
+	private static final String ROUTING_ACTION_UPDATE = "updateRouting";
+	private static final String ROUTING_ACTION_DELETE = "deleteRouting";
+	private static final String ROUTING_ACTION_CLEAR = "clearRouting";
+	private static final String ROUTING_ACTION_RESET = "resetDefaultRouting";
 	boolean CMAppIconVisibility = true;
 	String languageCode = "";
 
@@ -87,9 +95,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					Locale locale = Locale.getDefault();
 					int check = textToSpeech.isLanguageAvailable(locale);
 					if (check == TextToSpeech.LANG_MISSING_DATA || check == TextToSpeech.LANG_NOT_SUPPORTED) {
-						Log.e("TTS", "Language " + locale.toString() + " not supported or missing data");
-						Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-						startActivity(installIntent);
+//						Log.e("TTS", "Language " + locale.toString() + " not supported or missing data");
+//						Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+//						startActivity(installIntent);
 					} else {
 						textToSpeech.setLanguage(locale);
 						textToSpeech.setPitch(1.2f);
@@ -101,6 +109,18 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 			}
 		}, engineName);  // 显式指定 TTS 引擎
+
+
+		Switch sw_kiosk = (Switch) findViewById(R.id.switch_kiosk);
+		sw_kiosk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+					startLockTask();
+				else
+					stopLockTask();
+			}
+		});
 
 	}
 
@@ -285,15 +305,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			showLanguageDialog();
 			break;
 		case R.id.setParam:
-			try {
-				JSONObject json = new JSONObject();
-				setParam4setPaymentAPPParam(json);
-				param = json.toString();
-				createAsyncTask().execute(btnId);
-			} catch (JSONException e) {
-				e.printStackTrace();
-				showResponse("JSON Error");
-			}
+			showSetParamActionDialog(btnId);
 			break;
 		case R.id.checkCardExists:
 			try {
@@ -496,6 +508,147 @@ public class MainActivity extends Activity implements OnClickListener {
 		jsonObject.put("enableBinListCheck", false);
 
 
+	}
+
+	private void showSetParamActionDialog(int btnId) {
+		final String[] actions = {
+			"App Params",
+			"Query Routing List",
+			"Query Routing By PAN",
+			"Add Routing",
+			"Update Routing",
+			"Delete Routing",
+			"Clear Routing",
+			"Reset Default Routing"
+		};
+
+		new AlertDialog.Builder(MainActivity.this)
+			.setTitle("Select setParam action")
+			.setItems(actions, (dialog, which) -> handleSetParamAction(which, btnId))
+			.setNegativeButton("Cancel", null)
+			.show();
+	}
+
+	private void handleSetParamAction(int actionIndex, int btnId) {
+		switch (actionIndex) {
+		case 0:
+			try {
+				JSONObject json = new JSONObject();
+				setParam4setPaymentAPPParam(json);
+				param = json.toString();
+				createAsyncTask().execute(btnId);
+			} catch (JSONException e) {
+				e.printStackTrace();
+				showResponse("JSON Error");
+			}
+			break;
+		case 1:
+			sendRoutingAction(buildRoutingActionJson(ROUTING_ACTION_QUERY_LIST));
+			break;
+		case 2:
+			showInputDialog("Input PAN", 19, pan -> {
+				if (pan == null) return;
+				JSONObject json = buildRoutingActionJson(ROUTING_ACTION_QUERY_BY_PAN);
+				try {
+					json.put("routingPan", pan);
+					sendRoutingAction(json);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					showResponse("JSON Error");
+				}
+			});
+			break;
+		case 3:
+			showRoutingItemDialog(false, null, item -> {
+				if (item == null) return;
+				JSONObject json = buildRoutingActionJson(ROUTING_ACTION_ADD);
+				try {
+					json.put("routingItem", new JSONObject(item));
+					sendRoutingAction(json);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					showResponse("JSON Error");
+				}
+			});
+			break;
+		case 4:
+			showInputDialog("Input Routing ID", 12, id -> {
+				if (id == null) return;
+				showRoutingItemDialog(true, id, item -> {
+					if (item == null) return;
+					JSONObject json = buildRoutingActionJson(ROUTING_ACTION_UPDATE);
+					try {
+						json.put("routingItem", new JSONObject(item));
+						sendRoutingAction(json);
+					} catch (JSONException e) {
+						e.printStackTrace();
+						showResponse("JSON Error");
+					}
+				});
+			});
+			break;
+		case 5:
+			showInputDialog("Input Routing ID", 12, id -> {
+				if (id == null) return;
+				JSONObject json = buildRoutingActionJson(ROUTING_ACTION_DELETE);
+				try {
+					json.put("routingId", Long.parseLong(id));
+					sendRoutingAction(json);
+				} catch (Exception e) {
+					e.printStackTrace();
+					showResponse("Invalid Routing ID");
+				}
+			});
+			break;
+		case 6:
+			sendRoutingAction(buildRoutingActionJson(ROUTING_ACTION_CLEAR));
+			break;
+		case 7:
+			sendRoutingAction(buildRoutingActionJson(ROUTING_ACTION_RESET));
+			break;
+		default:
+			break;
+		}
+	}
+
+	private JSONObject buildRoutingActionJson(String action) {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("routingAction", action);
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+		return json;
+	}
+
+	private void sendRoutingAction(JSONObject json) {
+		param = json.toString();
+		createAsyncTask().execute(R.id.setParam);
+	}
+
+	private void showRoutingItemDialog(boolean includeId, String presetId, InputCallback callback) {
+		showInputDialog(includeId ? "Input Routing Name (ID=" + presetId + ")" : "Input Routing Name", 32, name -> {
+			if (name == null) return;
+			showInputDialog("Input Routing Brand", 32, brand -> {
+				if (brand == null) return;
+				showInputDialog("Input BIN Start", 10, binStart -> {
+					if (binStart == null) return;
+					try {
+						JSONObject item = new JSONObject();
+						if (includeId && presetId != null) {
+							item.put("id", Long.parseLong(presetId));
+						}
+						item.put("name", name);
+						item.put("brand", brand);
+						item.put("binStart", binStart);
+						callback.onInput(item.toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+						showResponse("JSON Error");
+					}
+				});
+			});
+		});
 	}
 
 	public interface InputCallback {
